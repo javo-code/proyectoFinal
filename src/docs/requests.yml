@@ -1,0 +1,45 @@
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - title
+        - description
+        - code
+        - price
+        - stock
+        - category
+        - thumbnails
+      properties:
+        title:
+          type: string
+          description: Título del producto.
+        description:
+          type: string
+          description: Descripción del producto.
+        code:
+          type: string
+          description: Código del producto.
+        price:
+          type: number
+          description: Precio del producto.
+        stock:
+          type: number
+          description: Stock disponible del producto.
+        category:
+          type: string
+          description: Categoría del producto.
+        thumbnails:
+          type: string
+          description: URLs de las imágenes del producto.
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del carrito.
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+          description: Productos en el carrito.
