@@ -15,4 +15,13 @@ export default class UserRepository {
         throw new Error(error.message);
     } 
   }
+
+    async getAllUsers(id) {
+    try {
+        const users = await this.dao.getAll(id);
+        return new UserResDTO(users);
+    } catch (error) {
+        throw new Error(error.message);
+    } 
+  }
 }
