@@ -4,24 +4,29 @@ import { authorizeUser, authorizeAdmin } from "../middlewares/authRol.js"
 import userValidator from "../middlewares/userValidator.js";
 
 import UserCntroller from "../controllers/user.controller.js"
-const controller = new UserCntroller();
+const userController = new UserCntroller();
+
+import ProdController from "../controllers/product.controllers.js"
+const productController = new ProdController();
 
 import { logger } from "../utils/logger.winston.js";
 
 const router = Router();
 
 //-------------------📌 USERS MAIN ROUTES
-router.get("/", controller.getAll)
-  .get("/:id", controller.getById)
-  .post("/", controller.create)
-  .put("/:id", controller.update)
-  .delete("/:id", controller.delete)
+router.get("/", userController.getAll)
+  .get("/:id", userController.getById)
+  .post("/", userController.create)
+  .put("/:id", userController.update)
+  .delete("/:id", userController.delete)
 
   //-------------------📌 ADMIN ROUTE
-
+  .post("/createProd", productController.create)
+  .delete("/deleteProd/:id", productController.delete)
+  .put("/updateProd/:id", productController.update)
   //-------------------📌 USERS ROUTES
-  .post("/register", userValidator, controller.register)
-  .post("/login", authorizeAdmin, authorizeUser, controller.login)
+  .post("/register", userValidator, userController.register)
+  .post("/login", authorizeAdmin, authorizeUser, userController.login)
   .get("/private", verifyToken, (req, res) => {
     const { first_name, last_name, email, role } = req.user;
     res.json({
@@ -52,7 +57,7 @@ router.get("/", controller.getAll)
   })
     
   //-------------------📌 DTO USER ROUTE
-  .get('/dto/:id', controller.getUserById)
+  .get('/dto/:id', userController.getUserById)
 
 
 

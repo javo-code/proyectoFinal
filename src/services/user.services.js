@@ -69,4 +69,7 @@ export default class UserService extends Services {
       throw new Error(error.message);
     }
   };
+
+  
+
 }
