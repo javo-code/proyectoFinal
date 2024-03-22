@@ -14,8 +14,9 @@ import { logger } from "../utils/logger.winston.js";
 const router = Router();
 
 //-------------------📌 USERS MAIN ROUTES
-router.get("/", userController.getAll)
-  .get("/:id", userController.getById)
+router
+  //.get("/", userController.getAll)
+  //.get("/:id", userController.getById)
   .post("/", userController.create)
   .put("/:id", userController.update)
   .delete("/:id", userController.delete)
@@ -57,7 +58,8 @@ router.get("/", userController.getAll)
   })
     
   //-------------------📌 DTO USER ROUTE
-  .get('/dto/:id', userController.getUserById)
+  //.get('/dto/:id', userController.getUserById)
+  .get('/', userController.getAllUser)
 
 
 

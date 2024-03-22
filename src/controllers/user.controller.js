@@ -12,6 +12,7 @@ const userService = new UserService();
 
 import UserRepository from "../persistence/repository/user.repository.js";
 const userRepository = new UserRepository();
+
 export default class UserController extends Controllers {
   constructor() {
     super(userService);
@@ -25,6 +26,19 @@ export default class UserController extends Controllers {
             return httpResponse.NotFound(res, "User not found!");
         else
             return httpResponse.Ok(res, user);
+    } catch (error) {
+        next(error);
+    }
+  };
+
+    async getAllUser (req, res, next){
+    try {
+      const users = await userRepository.getAllUsers({});
+      console.log("🚨clg desde userController =>", users)
+        if (!users)
+            return httpResponse.NotFound(res, "User not found!");
+        else
+            return httpResponse.Ok(res, users);
     } catch (error) {
         next(error);
     }

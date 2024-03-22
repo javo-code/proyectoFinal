@@ -3,9 +3,10 @@ export default class MongoDao {
     this.model = model;
   }
 
-  async getAll(page = 1, limit = 10) {
+  async getAll() {
     try {
-      const response = await this.model.paginate({}, {page, limit});
+      const response = await this.model.find({});
+      console.log("clg desde el dao =>", response)
       return response;
     } catch (error) {
       throw new Error(error.message);
