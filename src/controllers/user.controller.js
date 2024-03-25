@@ -31,7 +31,7 @@ export default class UserController extends Controllers {
     }
   };
 
-    async getAllUser (req, res, next){
+    async getAllUsers (req, res, next){
     try {
       const users = await userRepository.getAllUsers({});
       console.log("🚨clg desde userController =>", users)
@@ -52,10 +52,6 @@ export default class UserController extends Controllers {
     const user = { first_name, last_name, email, age, password };
     const newUser = await userDao.register(user);
     return httpResponse.Ok(res, "Register OK", newUser);
-/*     res.json({
-      msg: "Register OK",
-      newUser,
-    }); */
   } catch (error) {
     next(error);
   }

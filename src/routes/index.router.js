@@ -7,10 +7,11 @@ import ticketRouter from "./ticket.router.js";
 import userRouter from "./users.router.js";
 import emailRouter from "./email.router.js";
 import loggerRouter from "./logger.router.js";
+import viewsRouter from "./view.router.js"
 
 
 
-export default class MainRouter {
+export default class ApiRouter {
   constructor() {
     this.router = Router();
     this.initRoutes();
@@ -24,7 +25,6 @@ export default class MainRouter {
     this.router.use("/ticket", ticketRouter);
     this.router.use("/chat", chatRouter);
     this.router.use("/loggerTest", loggerRouter);
-
   }
 
   getRouter() {

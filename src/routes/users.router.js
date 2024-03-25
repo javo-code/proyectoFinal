@@ -59,7 +59,7 @@ router
     
   //-------------------📌 DTO USER ROUTE
   //.get('/dto/:id', userController.getUserById)
-  .get('/', userController.getAllUser)
+  .get('/', userController.getAllUsers)
 
 
 
