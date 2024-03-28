@@ -14,8 +14,4 @@ export const usersSchema = new Schema({
 
 usersSchema.plugin(mongoosePaginate);
 
-/* usersSchema.pre("find", function () {
-  this.populate("products");
-}); */
-
 export const UserModel = model(userCollection, usersSchema);

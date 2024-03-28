@@ -22,12 +22,12 @@ router
   .delete("/:id", userController.delete)
 
   //-------------------📌 ADMIN ROUTE
-  .post("/createProd", productController.create)
-  .delete("/deleteProd/:id", productController.delete)
-  .put("/updateProd/:id", productController.update)
+  .post("/createProd", authorizeAdmin, productController.create)
+  .delete("/deleteProd/:id", authorizeAdmin, productController.delete)
+  .put("/updateProd/:id", authorizeAdmin, productController.update)
   //-------------------📌 USERS ROUTES
   .post("/register", userValidator, userController.register)
-  .post("/login", authorizeAdmin, authorizeUser, userController.login)
+  .post("/login", userController.login)
   .get("/private", verifyToken, (req, res) => {
     const { first_name, last_name, email, role } = req.user;
     res.json({
@@ -60,7 +60,5 @@ router
   //-------------------📌 DTO USER ROUTE
   //.get('/dto/:id', userController.getUserById)
   .get('/', userController.getAllUsers)
-
-
 
 export default router;

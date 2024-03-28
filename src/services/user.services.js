@@ -1,11 +1,11 @@
+import config from "../config/config.js";
+import jwt from "jsonwebtoken";
 import Services from "./class.services.js";
 
 import factory from "../persistence/daos/factory.js";
 const { userDao } = factory;
 
-import jwt from "jsonwebtoken";
 import { logger } from "../utils/logger.winston.js";
-import config from "../config/config.js";
 
 import UserRepository from "../persistence/repository/user.repository.js";
 const userRepository = new UserRepository();
@@ -17,18 +17,18 @@ export default class UserService extends Services {
     super(userDao);
   }
 //------------- 📌 GENERAR TOKEN
-  #generateToken(user, timeExp) {
+
+  #generateToken(user) {
     const payload = {
       userId: user._id,
     };
-    const token = jwt.sign(payload, SECRET_KEY_JWT, {
-      expiresIn: timeExp,
-    });
-    return token;
+    return jwt.sign(payload, SECRET_KEY_JWT, { expiresIn: "10m" });
   }
 
+  
   register = async (user) => {
     try {
+      logger.info(user);
       const response = await this.dao.register(user);
       await sendMail(user, "register");
       return response;
@@ -44,8 +44,7 @@ export default class UserService extends Services {
       if(userExist) return this.#generateToken(userExist);
       else return false;
     } catch (error) {
-      logger.error(error);
-      throw new Error(error);
+      console.log(error);
     }
   }
 
@@ -69,7 +68,4 @@ export default class UserService extends Services {
       throw new Error(error.message);
     }
   };
-
-  
-
 }

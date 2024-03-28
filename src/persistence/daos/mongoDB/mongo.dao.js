@@ -3,9 +3,9 @@ export default class MongoDao {
     this.model = model;
   }
 
-  async getAll() {
+  async getAll(limit=2, page=1) {
     try {
-      const response = await this.model.find({});
+      const response = await this.model.find({ limit, page});
       //console.log("clg desde el dao =>", response)
       return response;
     } catch (error) {

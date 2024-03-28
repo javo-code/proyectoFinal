@@ -57,30 +57,17 @@ export default class UserController extends Controllers {
   }
 };
 
-  login = async (req, res, next) => {
+  async login(req, res, next) {
     try {
       const token = await userService.login(req.body);
-      if (!token) createResponse(res, 404, "Error login");
-      else {
-        res.header("Authorization", token);
-        createResponse(res, 200, token);
+      if (!token) {
+        return httpResponse.NotFound(res, "Error login");
+      } else {
+        // Enviar el token de autenticación en la respuesta
+        return res.status(200).json({ token });
       }
     } catch (error) {
-      next(error);
-    }
-  };
-
-  profile = (req, res, next) => {
-    try {
-      const { first_name, last_name, email, role } = req.user;
-      createResponse(res, 200, {
-        first_name,
-        last_name,
-        email,
-        role,
-      });
-    } catch (error) {
-      next(error);
+      next(error.message);
     }
   };
 }

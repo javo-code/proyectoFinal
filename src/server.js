@@ -1,7 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import MainRouter from "./routes/index.router.js";
-import viewRouter from "./routes/view.router.js";
 import { errorHandler } from './middlewares/errorHandler.js';
 import { Command } from "commander";
 import { logger } from "./utils/logger.winston.js";
@@ -31,7 +30,6 @@ app.use(cookieParser(config.SECRET_COOKIES));
 app.use(morgan('dev'));
 
 app.use('/api', mainRouter.getRouter());
-app.use('/', viewRouter); // Aquí se usa viewRouter para las rutas de las vistas
 
 app.use(errorHandler);
 
