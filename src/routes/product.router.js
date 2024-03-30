@@ -11,8 +11,10 @@ const controller = new ProductController();
 router
     .get("/", controller.getAll)
     .get("/:id", controller.getById)
-    .post("/", verifyToken, authorizeAdmin, authorizePremium, productValidator, addOwner, controller.create) // Añade verifyToken antes de authorizeAdmin y authorizePremium
-    //.post("/", productValidator, controller.create)
+    .post("/createProd", verifyToken, authorizeAdmin, authorizePremium, addOwner, productValidator, (req, res, next) => {
+        req.body.owner = req.user.role; // Asignar el valor de req.user.role a la propiedad owner del producto
+        controller.create(req, res, next);
+    })
     .put("/:id", controller.update)
     .delete("/:id", controller.delete)
 

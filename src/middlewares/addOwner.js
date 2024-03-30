@@ -1,23 +1,19 @@
 import { logger } from "../utils/logger.winston.js";
 
 export const addOwner = (req, res, next) => {
-    const { role } = req.user;
-
-    try {
-        // Verificar si el cuerpo de la solicitud contiene un objeto de producto
-        if (req.body) {
-            console.log("REQ.BODY => ", req.body)
-            // Agregar la propiedad "owner" al objeto del producto según el rol del usuario
-            if (role === "admin") {
-                req.body.owner = "admin";
-            } else if (role === "premium") {
+    // Verificar si el usuario está autenticado y tiene un rol definido
+    if (req.user && req.user.role) {
+        try {
+            // Definir "owner" como "admin" por defecto
+            req.body.owner = "admin";
+            // Si el rol del usuario es "premium", actualizar "owner" a "premium"
+            if (req.user.role === "premium") {
                 req.body.owner = "premium";
             }
+        } catch (error) {
+            logger.error('Error atrapado en el "addOwner.js" => ', error);
         }
-    } catch (error) {
-        logger.info('Error atrapado en el "addOwner.js" => ', error);
     }
-    
     next();
 };
 

@@ -25,28 +25,23 @@ export default class UserMongoDao extends MongoDao {
     }
   }
 
+
   async register(user) {
     try {
-      const { email, password } = user;
+      const { email, password, role } = user; // Añadimos 'role' al destructuring del usuario
       const existUser = await this.model.findOne({ email });
       if (!existUser) {
-        if (
-          email === "adminCoder@coder.com" &&
-          password === "adminCoder123"
-        ) {
-          const newUser = await this.model.create({
-            ...user,
-            password: createHash(password),
-            role: "admin",
-          });
-          return newUser;
-        } else {
-          const newUser = await this.model.create({
-            ...user,
-            password: createHash(password),
-          });
-          return newUser;
-        }
+        let newUser = {
+          ...user,
+          password: createHash(password),
+        };
+
+      // Verificamos si el campo 'role' está vacío y lo asignamos como 'admin' en ese caso
+      if (!role || role.trim() === "") {
+        newUser.role = "admin";
+      }
+        await this.model.create(newUser);
+        return newUser;
       } else {
         return false;
       }

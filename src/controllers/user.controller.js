@@ -40,17 +40,17 @@ export default class UserController extends Controllers {
   };
   
   register = async (req, res, next) => {
-  try {
-    const { first_name, last_name, email, age, password } = req.body;
-    const exist = await userDao.getByEmail(email);
-    if (exist) return res.status(400).json({ msg: "User already exists" });
-    const user = { first_name, last_name, email, age, password };
-    const newUser = await userDao.register(user);
-    return httpResponse.Ok(res, "Register OK", newUser);
-  } catch (error) {
-    next(error);
-  }
-};
+    try {
+      const { first_name, last_name, email, age, password, role } = req.body; // Añadimos 'role' al destructuring del cuerpo de la solicitud
+      const exist = await userDao.getByEmail(email);
+      if (exist) return res.status(400).json({ msg: "User already exists" });
+      const user = { first_name, last_name, email, age, password, role }; // Añadimos 'role' al objeto 'user'
+      const newUser = await userDao.register(user);
+      return httpResponse.Ok(res, "Register OK", newUser);
+    } catch (error) {
+      next(error);
+    }
+  };
 
   async login(req, res, next) {
     try {

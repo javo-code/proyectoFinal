@@ -9,7 +9,7 @@ export const usersSchema = new Schema({
   email: { type: String, required: true, unique: true },
   age: { type: Number },
   password: { type: String, required: true },
-  role: { type: String, default: 'admin' }
+  role: { type: String, require: true, default: "admin"}
 });
 
 usersSchema.plugin(mongoosePaginate);
