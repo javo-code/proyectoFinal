@@ -58,14 +58,4 @@ export default class UserService extends Services {
       throw new Error(error);
     }
   };
-
-    async getUserById(id) {
-    try {
-      const user = await userRepository.getUserById(id);
-      if (!user) return false;
-      else return user;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  };
 }

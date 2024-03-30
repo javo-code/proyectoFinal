@@ -1,12 +1,8 @@
 import Controllers from "./class.controller.js";
-
 import { HttpResponse } from "../utils/http.response.js";
 const httpResponse = new HttpResponse();
-
 import UserDao from "../persistence/daos/mongoDB/users/user.dao.js";
 const userDao = new UserDao();
-
-
 import UserService from "../services/user.services.js";
 const userService = new UserService();
 
@@ -17,7 +13,6 @@ export default class UserController extends Controllers {
   constructor() {
     super(userService);
   }
-
   async getUserById (req, res, next){
     try {
         const { id } = req.params;

@@ -14,16 +14,16 @@ export default class UserRepository {
       return new UserResDTO(user);
     } catch (error) {
       throw new Error(error.message);
-    } 
+    }
   }
 
   async getAllUsers() {
     try {
       const users = await this.dao.getAll();
-      //console.log("🚀clg linea 22 desde user.repository =>", users);
-      return users.map(user => new UserResDTO(user)); // Mapea cada usuario a un objeto UserResDTO
+      console.log("🚀clg linea 22 desde user.repository =>", users);
+      return users.map(user => new UserResDTO(user));
     } catch (error) {
       throw new Error(error.message);
-    } 
+    }
   }
 }
