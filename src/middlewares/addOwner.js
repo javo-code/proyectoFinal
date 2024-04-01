@@ -3,6 +3,7 @@ import { logger } from "../utils/logger.winston.js";
 export const addOwner = (req, res, next) => {
     // Verificar si el usuario está autenticado y tiene un rol definido
     if (req.user && req.user.role) {
+        console.log("👻", req.user)
         try {
             // Definir "owner" como "admin" por defecto
             req.body.owner = "admin";

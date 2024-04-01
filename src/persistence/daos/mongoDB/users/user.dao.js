@@ -25,7 +25,6 @@ export default class UserMongoDao extends MongoDao {
     }
   }
 
-
   async register(user) {
     try {
       const { email, password, role } = user; // Añadimos 'role' al destructuring del usuario
@@ -35,17 +34,16 @@ export default class UserMongoDao extends MongoDao {
           ...user,
           password: createHash(password),
         };
-
-      // Verificamos si el campo 'role' está vacío y lo asignamos como 'admin' en ese caso
       if (!role || role.trim() === "") {
         newUser.role = "admin";
-      }
+        };
         await this.model.create(newUser);
         return newUser;
       } else {
         return false;
-      }
+      };
     } catch (error) {
+      console.log('❌ Error del "register" en user.dao.js => ', error)
       throw new Error(error);
     }
   }
@@ -58,6 +56,7 @@ export default class UserMongoDao extends MongoDao {
       }
       return false;
     } catch (error) {
+      console.log('❌ Error del "getByEmail" en user.dao.js => ', error)
       throw new Error(error);
     }
   }

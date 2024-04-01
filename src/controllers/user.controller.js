@@ -1,8 +1,9 @@
+//user.controllers.js:
 import Controllers from "./class.controller.js";
+
 import { HttpResponse } from "../utils/http.response.js";
 const httpResponse = new HttpResponse();
-import UserDao from "../persistence/daos/mongoDB/users/user.dao.js";
-const userDao = new UserDao();
+
 import UserService from "../services/user.services.js";
 const userService = new UserService();
 
@@ -22,7 +23,8 @@ export default class UserController extends Controllers {
         else
             return httpResponse.Ok(res, user);
     } catch (error) {
-        next(error);
+      console.log('❌ Error del "getUserById" en user.controller.js => ', error);
+        next(error.message);
     }
   };
 
@@ -35,33 +37,37 @@ export default class UserController extends Controllers {
         else
             return httpResponse.Ok(res, users);
     } catch (error) {
-        next(error);
+      console.log('❌ Error del "getAllUsers" en user.controller.js => ', error);
+        next(error.message);
     }
   };
   
   register = async (req, res, next) => {
     try {
       const { first_name, last_name, email, age, password, role } = req.body; // Añadimos 'role' al destructuring del cuerpo de la solicitud
-      const exist = await userDao.getByEmail(email);
+      const exist = await userService.getByEmail(email);
       if (exist) return res.status(400).json({ msg: "User already exists" });
       const user = { first_name, last_name, email, age, password, role }; // Añadimos 'role' al objeto 'user'
       const newUser = await userDao.register(user);
       return httpResponse.Ok(res, "Register OK", newUser);
     } catch (error) {
-      next(error);
+      console.log('❌ Error del "register" en user.controller.js => ', error);
+      next(error.message);
     }
   };
 
   async login(req, res, next) {
     try {
-      const token = await userService.login(req.body);
-      if (!token) {
-        return httpResponse.NotFound(res, "Error login");
+      const { email, password } = req.body; // Destructurar email y password
+      const token = await userService.login({ email, password }); // Pasar solo el email como un string
+      if (token) {
+        const userData = await userService.getUserByEmail(email); // Obtener datos del usuario por email
+        return res.status(200).json({ token, userData });
       } else {
-        // Enviar el token de autenticación en la respuesta
-        return res.status(200).json({ token });
+        return httpResponse.NotFound(res, "Error login");
       }
     } catch (error) {
+      console.log('❌ Error del "login" en user.controller.js => ', error);
       next(error.message);
     }
   };

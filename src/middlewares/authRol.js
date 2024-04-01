@@ -27,5 +27,5 @@ export const authorizePremium = (req, res, next) => {
     next();
   } else {
     res.status(403).json({ message: "Acceso no autorizado" });
-  }
+  } 
 };

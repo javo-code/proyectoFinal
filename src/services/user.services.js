@@ -1,3 +1,4 @@
+//userservices.js:
 import config from "../config/config.js";
 import jwt from "jsonwebtoken";
 import Services from "./class.services.js";
@@ -8,6 +9,7 @@ const { userDao } = factory;
 import { logger } from "../utils/logger.winston.js";
 
 import UserRepository from "../persistence/repository/user.repository.js";
+import { isValidPassword } from "../utils/utils.js";
 const userRepository = new UserRepository();
 
 const SECRET_KEY_JWT = config.SECRET_KEY_JWT;
@@ -40,13 +42,24 @@ export default class UserService extends Services {
 
   async login(user) {
     try {
-      const userExist = await userDao.login(user);
-      if(userExist) return this.#generateToken(userExist);
-      else return false;
+      const { email, password } = user;
+      const userExist = await userDao.getByEmail(email); // Pasar solo el email como un string
+      if (userExist) {
+        const isPasswordValid = isValidPassword(userExist, password);
+        if (isPasswordValid) {
+          const token = this.#generateToken(userExist);
+          return token;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
     } catch (error) {
       console.log(error);
+      throw new Error(error);
     }
-  }
+  };
 
   async getUserByEmail(email){
     try {

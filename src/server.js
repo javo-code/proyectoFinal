@@ -1,17 +1,22 @@
+//server.js:
+import config from "./config/config.js";
 import express from 'express';
+import cookieParser from "cookie-parser";
 import morgan from 'morgan';
-import MainRouter from "./routes/index.router.js";
+
 import { errorHandler } from './middlewares/errorHandler.js';
 import { Command } from "commander";
 import { logger } from "./utils/logger.winston.js";
-import "dotenv/config.js";
-import cookieParser from "cookie-parser";
-import config from "./config/config.js";
 import { info } from './docs/info.js';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
+
+import MainRouter from "./routes/index.router.js";
+import session from "express-session";
+import { mongoStoreOptions } from "./config/mongoStoreOptions.js";
 const mainRouter = new MainRouter();
+
 const app = express();
 
 const specs = swaggerJSDoc(info);
@@ -27,6 +32,7 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(config.SECRET_COOKIES));
+app.use(session(mongoStoreOptions));
 app.use(morgan('dev'));
 
 app.use('/api', mainRouter.getRouter());

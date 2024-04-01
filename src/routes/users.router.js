@@ -1,3 +1,4 @@
+//user.router.js:
 import { Router } from "express";
 import userValidator from "../middlewares/userValidator.js";
 
@@ -7,7 +8,8 @@ const userController = new UserCntroller();
 import ProdController from "../controllers/product.controllers.js"
 const productController = new ProdController();
 
-import { logger } from "../utils/logger.winston.js";
+import addOwner from "../middlewares/addOwner.js";
+import { verifyToken } from "../middlewares/verifyToken.js"
 
 const router = Router();
 
@@ -20,29 +22,14 @@ router
   .delete("/:id", userController.delete)
 
   //-------------------📌 ADMIN ROUTE
-  .post("/createProd", productController.create)
+  //.get("/profile", verifyToken, userController.profile)
+  .post("/createProd", addOwner, productController.create)
   .delete("/deleteProd/:id", productController.delete)
   .put("/updateProd/:id", productController.update)
   //-------------------📌 USERS ROUTES
   .post("/register", userValidator, userController.register)
   .post("/login", userController.login)
   
-
-  .get('/logout', (req, res) => {
-    try {
-      req.session.destroy((err) => {
-        if (err) {
-          logger.error("Error closing session:", err);
-          throw new Error("The session couldn't be destroyed la sesión");
-        }
-        logger.info('Sesión de usuario destruida con éxito.');
-        res.redirect('/login');
-      });
-    } catch (error) {
-      logger.error('Error al destruir la sesión:', error);
-      return res.status(500).send('Error al cerrar sesión');
-    }
-  })
     
   //-------------------📌 DTO USER ROUTE
   //.get('/dto/:id', userController.getUserById)
