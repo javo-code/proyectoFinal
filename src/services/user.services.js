@@ -7,10 +7,7 @@ import factory from "../persistence/daos/factory.js";
 const { userDao } = factory;
 
 import { logger } from "../utils/logger.winston.js";
-
-import UserRepository from "../persistence/repository/user.repository.js";
 import { isValidPassword } from "../utils/utils.js";
-const userRepository = new UserRepository();
 
 const SECRET_KEY_JWT = config.SECRET_KEY_JWT;
 
@@ -20,7 +17,7 @@ export default class UserService extends Services {
   }
 //------------- 📌 GENERAR TOKEN
 
-  #generateToken(user) {
+  #generateToken(user){
     const payload = {
       userId: user._id,
     };
@@ -28,7 +25,7 @@ export default class UserService extends Services {
   }
 
   
-  register = async (user) => {
+  async register(user){
     try {
       const response = await this.dao.register(user);
       return response;
@@ -38,10 +35,10 @@ export default class UserService extends Services {
   }
 };
 
-  async login(user) {
+  async login(user){
     try {
       const { email, password } = user;
-      const userExist = await userDao.getByEmail(email); // Pasar solo el email como un string
+      const userExist = await userDao.getByEmail(email);
       if (userExist) {
         const isPasswordValid = isValidPassword(userExist, password);
         if (isPasswordValid) {
@@ -55,11 +52,34 @@ export default class UserService extends Services {
       }
     } catch (error) {
       logger.error('❌ Error del "login" en user.service.js => ', error);
-      throw new Error(error);
+    throw new Error(error);
     }
   };
 
-  async getUserByEmail(email){
+    async updateConnection(userId){
+        try {
+            await userDao.updateConnection(userId);
+        } catch (error) {
+          console.log('❌ Error del "updateCopnnection" en user.services.js => ', error)
+          throw new Error(error.message);
+        };
+    };
+
+    deleteInactives = async () => {
+        try{
+            const inactiveUsers = await userDao.deleteInactives();
+            inactiveUsers.forEach(user => {
+                sendMail(user, 'inactiveUser');
+            });
+        return inactiveUsers;
+
+        }catch(error){
+          console.log('❌ Error del "deleteInactives" en user.services.js => ', error)
+          throw new Error(error.message);
+        };
+    };
+
+  async getByEmail(email){
     try {
       const user = await userDao.getByEmail(email);
       if (!user) return false;

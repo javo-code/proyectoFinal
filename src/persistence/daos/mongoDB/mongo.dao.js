@@ -1,3 +1,4 @@
+//mongo.dao.js:
 export default class MongoDao {
   constructor(model) {
     this.model = model;
@@ -15,15 +16,14 @@ export default class MongoDao {
   }
 
   async getById(id) {
-    try {
+    try{
       const response = await this.model.findById(id);
       return response;
-    } catch (error) {
+    }catch(error){
       console.log('❌ Error del "getById" en user.mongo.dao.js => ', error);
-      throw new Error(error.message);
-    }
-  }
-
+      throw new Error(error.message)
+    };
+  };
   async create(obj) {
     try {
       const response = await this.model.create(obj);

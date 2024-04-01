@@ -8,31 +8,24 @@ const userController = new UserCntroller();
 import ProdController from "../controllers/product.controllers.js"
 const productController = new ProdController();
 
-import addOwner from "../middlewares/addOwner.js";
-import { verifyToken } from "../middlewares/verifyToken.js"
+import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = Router();
 
-//-------------------📌 USERS MAIN ROUTES
+//-------------------📌 USERS ROUTES
 router
   //.get("/", userController.getAll)
-  .get("/:id", userController.getById)
-  .post("/", userController.create)
+  .get('/', userController.getAllUsers)
   .put("/:id", userController.update)
   .delete("/:id", userController.delete)
-
-  //-------------------📌 ADMIN ROUTE
-  //.get("/profile", verifyToken, userController.profile)
-  .post("/createProd", addOwner, productController.create)
-  .delete("/deleteProd/:id", productController.delete)
-  .put("/updateProd/:id", productController.update)
-  //-------------------📌 USERS ROUTES
+  .get("/profile", verifyToken, userController.profile)
+  .delete("/delete", userController.deleteInactives)
   .post("/register", userValidator, userController.register)
   .post("/login", userController.login)
   
-    
+  //-------------------📌 ADMIN ROUTE
+  .post("/createProd", productController.create)
+  
   //-------------------📌 DTO USER ROUTE
-  //.get('/dto/:id', userController.getUserById)
-  .get('/', userController.getAllUsers)
 
 export default router;

@@ -1,16 +1,28 @@
 const HttpStatus = {
   OK: 200,
   NOT_FOUND: 404,
-  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   INTERNAL_SERVER_ERROR: 500,
 };
 
 export const errorsDictionary = {
-  ERROR_CREATE_ITEM: 'Error creating ITEM - Item Not Found:',
+  ERROR_GET_ALL: 'No se pudo listar todos los itemas',
+  ERROR_CREATE_ITEM: 'Error creating item',
+  ERROR_UPDATE_ITEM: 'Error updating item',
+  ERROR_DELETE_ITEM: 'Error deleting item',
+  ERROR_ADD_TO_CART: 'Error adding product to cart',
+  ERROR_DELETE_CART: 'Error deleting cart',
+  ERROR_CREATE_USER: 'Error creating user',
+  ERROR_LOGIN: 'Error login',
+  ERROR_FIND_ITEM: 'Error finding item',
+  ERROR_TOKEN: 'Token expired',
+  ERROR_PASSWORD: 'Password already exists',
+  
 }
+
 export class HttpResponse {
+  
   Ok(res, data) {
     return res.status(HttpStatus.OK).json({
       status: HttpStatus.OK,
@@ -23,21 +35,6 @@ export class HttpResponse {
     return res.status(HttpStatus.NOT_FOUND).json({
       status: HttpStatus.NOT_FOUND,
       message: "Not Found",
-      error: data,
-    });
-  }
-
-  invalidDataType(res, data) {
-    return res.status(HttpStatus.BAD_REQUEST).json({
-      status: HttpStatus.BAD_REQUEST,
-      message: ` 
-        \n title: must be => "string" 
-        \n description: must be => "string" 
-        \n code: must be => "string" 
-        \n price: must be => "number" 
-        \n stock: must be => "number"
-        \n category: must be => "string"
-        \n thumbnails: must be => "string"`,
       error: data,
     });
   }

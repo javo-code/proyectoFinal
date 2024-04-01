@@ -12,7 +12,7 @@ export default class UserMongoDao extends MongoDao {
     try {
       const { email, password } = user;
       // console.log(email);
-      const userExist = await this.getByEmail(email); 
+      const userExist = await this.model.getByEmail(email); 
       // console.log('dao', userExist);
       if(userExist){
         const passValid = isValidPassword(userExist, password)
@@ -20,7 +20,7 @@ export default class UserMongoDao extends MongoDao {
         else return userExist
       } return false
     } catch (error) {
-      console.log(error)
+      console.log('❌ Error del "login" en user.dao.js => ', error)
       throw new Error(error)
     }
   }
@@ -47,6 +47,28 @@ export default class UserMongoDao extends MongoDao {
       throw new Error(error);
     }
   }
+
+    async updateConnection(userId) {
+    try {
+      const currentDate = new Date();
+      await this.model.findByIdAndUpdate(userId, { lastConnection: currentDate });
+    } catch (error) {
+      console.log('❌ Error del "updateCopnnection" en user.dao.js => ', error)
+      throw new Error(error.message);
+    };
+  };
+
+  async deleteInactives() {
+    try {
+      const inactiveUsers = await this.model.find({ lastConnection: { $lt: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) } });
+      await this.model.deleteMany({ _id: { $in: inactiveUsers.map(user => user._id) } });
+      return inactiveUsers;
+
+    } catch (error) {
+      console.log('❌ Error del "deleteInactives" en user.dao.js => ', error)
+      throw new Error(error.message);
+    };
+  };
 
   async getByEmail(email) {
     try {
