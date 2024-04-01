@@ -20,12 +20,12 @@ router
   .delete("/:id", userController.delete)
   .get("/profile", verifyToken, userController.profile)
   .delete("/delete", userController.deleteInactives)
+  .get("/info", userController.infoSession)
   .post("/register", userValidator, userController.register)
   .post("/login", userController.login)
-  
+  .get('/logout', userController.logout)
   //-------------------📌 ADMIN ROUTE
   .post("/createProd", productController.create)
   
-  //-------------------📌 DTO USER ROUTE
 
 export default router;

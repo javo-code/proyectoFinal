@@ -82,9 +82,23 @@ export default class UserController extends Controllers {
     } catch (error) {
       console.log('❌ Error del "profile" en user.controller.js => ', error);
       next(error.message);
+    };
   };
+  
+  async infoSession(req, res){
+  res.send({
+    session: req.session,
+    sessionId: req.sessionID,
+    cookies: req.cookies,
+  });
   };
-
+  
+  async logout(req, res){
+  req.session.destroy((err) => {
+    if (!err) res.send("Logout ok!");
+    else res.send({ status: "Logout ERROR", body: err });
+  });
+};
   
   async deleteInactives(req, res, next) {
     try {
@@ -99,4 +113,5 @@ export default class UserController extends Controllers {
       next(error);
     };
   };
+
 }

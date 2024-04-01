@@ -10,16 +10,13 @@ import { info } from './docs/info.js';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
-
 import MainRouter from "./routes/index.router.js";
 import session from "express-session";
 import { mongoStoreOptions } from "./config/mongoStoreOptions.js";
 const mainRouter = new MainRouter();
 
 const app = express();
-
 const specs = swaggerJSDoc(info);
-
 const commander = new Command();
 
 commander.option("-m <mode>", "mode server", "dev");
