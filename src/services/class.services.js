@@ -7,6 +7,7 @@ export default class Services {
     try {
       return this.dao.getAll();
     } catch (error) {
+      console.log('❌ Error del "getAll" en user.service.dao.js => ', error);
       throw new Error(error.message);
     }
   };
@@ -17,6 +18,7 @@ export default class Services {
       if (!item) return false;
       else return item;
     } catch (error) {
+      console.log('❌ Error del "getById" en user.service.dao.js => ', error);
       throw new Error(error.message);
     }
   };
@@ -27,6 +29,7 @@ export default class Services {
       if (!newItem) return false;
       else return newItem;
     } catch (error) {
+      console.log('❌ Error del "create" en user.service.dao.js => ', error);
       throw new Error(error.message);
     }
   };
@@ -37,6 +40,7 @@ export default class Services {
       if (item) return false;
       else return await this.dao.update(id, obj);
     } catch (error) {
+      console.log('❌ Error del "update" en user.service.dao.js => ', error);
       throw new Error(error.message);
     }
   };
@@ -45,6 +49,7 @@ export default class Services {
     try {
       return await this.dao.delete(id);
     } catch (error) {
+      console.log('❌ Error del "delete" en user.service.dao.js => ', error);
       throw new Error(error.message);
     }
   };

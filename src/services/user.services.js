@@ -1,4 +1,4 @@
-//userservices.js:
+//user.services.js:
 import config from "../config/config.js";
 import jwt from "jsonwebtoken";
 import Services from "./class.services.js";
@@ -30,12 +30,10 @@ export default class UserService extends Services {
   
   register = async (user) => {
     try {
-      logger.info(user);
       const response = await this.dao.register(user);
-      await sendMail(user, "register");
       return response;
     } catch (error) {
-    logger.error(error);
+    logger.error('❌ Error del "register" en user.service.js => ', error);
     throw new Error(error);
   }
 };
@@ -56,7 +54,7 @@ export default class UserService extends Services {
         return false;
       }
     } catch (error) {
-      console.log(error);
+      logger.error('❌ Error del "login" en user.service.js => ', error);
       throw new Error(error);
     }
   };

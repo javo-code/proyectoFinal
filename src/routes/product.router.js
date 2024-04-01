@@ -1,3 +1,4 @@
+//product.router.js:
 import { Router } from "express";
 import ProductController from "../controllers/product.controllers.js";
 import productValidator from "../middlewares/productValidator.js";

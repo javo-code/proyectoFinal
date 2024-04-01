@@ -13,6 +13,8 @@ export default class UserRepository {
       const user = await this.dao.getById(id);
       return new UserResDTO(user);
     } catch (error) {
+      console.log('❌ Error del "getUserById" en user.repository.js => ', error)
+
       throw new Error(error.message);
     }
   }
@@ -23,6 +25,8 @@ export default class UserRepository {
       console.log("🚀clg linea 22 desde user.repository =>", users);
       return users.map(user => new UserResDTO(user));
     } catch (error) {
+      console.log('❌ Error del "getAllUsers" en user.repository.js => ', error)
+
       throw new Error(error.message);
     }
   }

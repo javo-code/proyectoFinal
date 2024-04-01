@@ -1,4 +1,4 @@
-// UserMongoDao.js
+// User.dao.js:
 import MongoDao from "../mongo.dao.js";
 import { UserModel } from "./user.model.js";
 import { isValidPassword, createHash } from "../../../../utils/utils.js";

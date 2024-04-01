@@ -2,7 +2,6 @@
 import config from "./config/config.js";
 import express from 'express';
 import cookieParser from "cookie-parser";
-import morgan from 'morgan';
 
 import { errorHandler } from './middlewares/errorHandler.js';
 import { Command } from "commander";
@@ -33,7 +32,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(config.SECRET_COOKIES));
 app.use(session(mongoStoreOptions));
-app.use(morgan('dev'));
 
 app.use('/api', mainRouter.getRouter());
 

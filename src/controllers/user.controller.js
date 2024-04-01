@@ -42,26 +42,28 @@ export default class UserController extends Controllers {
     }
   };
   
-  register = async (req, res, next) => {
-    try {
-      const { first_name, last_name, email, age, password, role } = req.body; // Añadimos 'role' al destructuring del cuerpo de la solicitud
-      const exist = await userService.getByEmail(email);
-      if (exist) return res.status(400).json({ msg: "User already exists" });
-      const user = { first_name, last_name, email, age, password, role }; // Añadimos 'role' al objeto 'user'
-      const newUser = await userDao.register(user);
-      return httpResponse.Ok(res, "Register OK", newUser);
-    } catch (error) {
-      console.log('❌ Error del "register" en user.controller.js => ', error);
-      next(error.message);
-    }
-  };
+register = async (req, res, next) => {
+  try {
+    const { first_name, last_name, email, age, password, role } = req.body;
+    const exist = await userService.getUserByEmail(email);
+    if (exist) return res.status(400).json({ msg: "User already exists" });
+    const user = { first_name, last_name, email, age, password, role };
+    const newUser = await userService.register(user);
+    return res.json(newUser);
+  } catch (error) {
+    console.log('❌ Error del "register" en user.controller.js => ', error);
+    next(error.message);
+  }
+};
+
+
 
   async login(req, res, next) {
     try {
-      const { email, password } = req.body; // Destructurar email y password
-      const token = await userService.login({ email, password }); // Pasar solo el email como un string
+      const { email, password } = req.body;
+      const token = await userService.login({ email, password });
       if (token) {
-        const userData = await userService.getUserByEmail(email); // Obtener datos del usuario por email
+        const userData = await userService.getUserByEmail(email);
         return res.status(200).json({ token, userData });
       } else {
         return httpResponse.NotFound(res, "Error login");

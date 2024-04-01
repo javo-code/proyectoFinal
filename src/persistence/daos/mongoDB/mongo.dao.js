@@ -9,6 +9,7 @@ export default class MongoDao {
       //console.log("clg desde el dao =>", response)
       return response;
     } catch (error) {
+      console.log('❌ Error del "getAll" en user.mongo.dao.js => ', error);
       throw new Error(error.message);
     }
   }
@@ -18,6 +19,7 @@ export default class MongoDao {
       const response = await this.model.findById(id);
       return response;
     } catch (error) {
+      console.log('❌ Error del "getById" en user.mongo.dao.js => ', error);
       throw new Error(error.message);
     }
   }
@@ -27,6 +29,7 @@ export default class MongoDao {
       const response = await this.model.create(obj);
       return response;
     } catch (error) {
+      console.log('❌ Error del "create" en user.mongo.dao.js => ', error);
       throw new Error(error.message);
     }
   }
@@ -36,6 +39,7 @@ export default class MongoDao {
       await this.model.updateOne({ _id: id }, obj);
       return obj;
     } catch (error) {
+      console.log('❌ Error del "update" en user.mongo.dao.js => ', error);
       throw new Error(error.message);
     }
   }
@@ -45,6 +49,7 @@ export default class MongoDao {
       const response = await this.model.findByIdAndDelete(id);
       return response;
     } catch (error) {
+      console.log('❌ Error del "delete" en user.mongo.dao.js => ', error);
       throw new Error(error.message);
     }
   }

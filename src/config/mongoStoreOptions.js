@@ -1,10 +1,10 @@
+//mongoStoreOptions.js:
 import MongoStore from "connect-mongo";
-import session from "express-session";
 
 export const mongoStoreOptions = {
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URL_LOCAL,
-/*         crypto: {
+        /*  crypto: {
             secret:config.SECRET_COOKIES
         } */
     }),
@@ -14,5 +14,4 @@ export const mongoStoreOptions = {
     cookie: {
         maxAge: 120000,
     },
-
 }
