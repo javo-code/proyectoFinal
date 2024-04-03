@@ -43,4 +43,3 @@ export const loggerWinston = () => {
   logger.error("imprimimos error");
 };
 
-loggerWinston();

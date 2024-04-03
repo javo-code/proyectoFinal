@@ -20,10 +20,11 @@ router
   .delete("/:id", userController.delete)
   .get("/profile", verifyToken, userController.profile)
   .delete("/delete", userController.deleteInactives)
-  .get("/info", userController.infoSession)
+  .get("/cookie-session", userController.infoSession)
   .post("/register", userValidator, userController.register)
   .post("/login", userController.login)
   .get('/logout', userController.logout)
+  .get('/all', userController.getAll)
   //-------------------📌 ADMIN ROUTE
   .post("/createProd", productController.create)
   

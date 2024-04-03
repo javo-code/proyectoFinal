@@ -10,7 +10,7 @@ export const mongoStoreOptions = {
     }),
     secret: process.env.SECRET_COOKIES,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         maxAge: 120000,
     },

@@ -77,7 +77,7 @@ export default class UserController extends Controllers {
   async profile(req, res, next) {
     try {
       const user = req.user;
-      const token = jwt.sign({ userId: user._id }, config.SECRET_KEY_JWT, { expiresIn: '1m' });
+      const token = jwt.sign({ userId: user._id }, config.SECRET_KEY_JWT, { expiresIn: '2m' });
       return res.status(200).json({ user, token });
     } catch (error) {
       console.log('❌ Error del "profile" en user.controller.js => ', error);
@@ -90,6 +90,7 @@ export default class UserController extends Controllers {
     session: req.session,
     sessionId: req.sessionID,
     cookies: req.cookies,
+    userData: req.session.userData
   });
   };
   
