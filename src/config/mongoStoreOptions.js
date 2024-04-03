@@ -3,7 +3,7 @@ import MongoStore from "connect-mongo";
 
 export const mongoStoreOptions = {
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URL_LOCAL,
+        mongoUrl: process.env.MONGO_URL_ATLAS,
         /*  crypto: {
             secret:config.SECRET_COOKIES
         } */
