@@ -1,3 +1,4 @@
+//httpResponses.js:
 const HttpStatus = {
   OK: 200,
   NOT_FOUND: 404,
@@ -7,7 +8,7 @@ const HttpStatus = {
 };
 
 export const errorsDictionary = {
-  ERROR_GET_ALL: 'No se pudo listar todos los itemas',
+  ERROR_GET_ALL: "Can't show all items",
   ERROR_CREATE_ITEM: 'Error creating item',
   ERROR_UPDATE_ITEM: 'Error updating item',
   ERROR_DELETE_ITEM: 'Error deleting item',

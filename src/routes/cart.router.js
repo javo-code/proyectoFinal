@@ -1,4 +1,4 @@
-// cart.router.js
+// ticket.router.js
 import { Router } from "express";
 import CartController from "../controllers/cart.controllers.js";
 import * as ticketController from '../controllers/ticket.controller.js';

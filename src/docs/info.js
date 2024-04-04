@@ -2,9 +2,9 @@ export const info = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API ecommerce",
+      title: "API ecommerce Nueva Medicina Internacion Domiciliaria",
       version: "1.0.0",
-      description: "API para la venta de produtctos descartables de medicina",
+      description: "API para la venta de productos descartables de salud",
     },
     servers: [
       {

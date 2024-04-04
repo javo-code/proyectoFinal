@@ -1,3 +1,4 @@
+//class.controller.js:
 import { HttpResponse } from "../utils/http.response.js";
 const httpResponse = new HttpResponse();
 import { errorsDictionary } from "../utils/http.response.js";

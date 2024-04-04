@@ -1,3 +1,4 @@
+//ticket.model.js:
 import { Schema, model } from 'mongoose';
 
 export const ticketSchema = new Schema({

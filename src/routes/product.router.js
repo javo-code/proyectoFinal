@@ -14,6 +14,7 @@ router
         req.body.owner = req.user.role; // Asignar el valor de req.user.role a la propiedad owner del producto
         controller.create(req, res, next);
     })
+    .post("/", controller.create)
     .put("/:id", controller.update)
     .delete("/:id", controller.delete)
 

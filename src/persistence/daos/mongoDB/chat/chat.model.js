@@ -1,3 +1,4 @@
+//chat.model.js:
 import { Schema, model } from "mongoose";
 
 const messageCollectionName = 'messages'

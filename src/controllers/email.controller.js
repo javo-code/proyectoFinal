@@ -1,3 +1,4 @@
+//email.controller.js:
 import "dotenv/config";
 import { template } from "../templates/template.js";
 import { transporter } from "../services/email.services.js";

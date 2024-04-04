@@ -1,20 +1,85 @@
-responses:
-  "200":
-    description: Respuesta exitosa.
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            success:
-              type: boolean
-              example: true
-            data:
-              type: object
-              example: {}
-  "400":
-    description: Solicitud incorrecta.
-  "404":
-    description: Recurso no encontrado.
-  "500":
-    description: Error del servidor.
+components:
+  schema:
+    Productos:
+      CreateNewProduct:
+        properties:
+          title:
+            type: string
+            description: Título del producto.
+          description:
+            type: string
+            description: Descripción del producto.
+          code:
+            type: string
+            description: Código del producto.
+          price:
+            type: number
+            description: Precio del producto.
+          stock:
+            type: number
+            description: Stock disponible del producto.
+          category:
+            type: string
+            description: Categoría del producto.
+          thumbnails:
+            type: string
+            description: URLs de las imágenes del producto.
+      example:
+        title: producto NUEVO
+        description: NEW_PROD-DESCRIPTION
+        code: NEW_PROD-ACC
+        price: 100
+        stock: 10
+        category: deponsables
+        thumbnails: http://asdasd.com/gasa.jpg
+        owner: admin
+        _id: 660dd4d67835f57d7dd28773
+    Usuarios:
+      RegisterNewUser:
+        properties:
+          title:
+            type: string
+            description: Título del producto.
+          description:
+            type: string
+            description: Descripción del producto.
+          code:
+            type: string
+            description: Código del producto.
+          price:
+            type: number
+            description: Precio del producto.
+          stock:
+            type: number
+            description: Stock disponible del producto.
+          category:
+            type: string
+            description: Categoría del producto.
+          thumbnails:
+            type: string
+            description: URLs de las imágenes del producto.
+      example:
+        title: producto NUEVO
+        description: NEW_PROD-DESCRIPTION
+        code: NEW_PROD-ACC
+        price: 100
+        stock: 10
+        category: deponsables
+        thumbnails: http://asdasd.com/gasa.jpg
+        owner: admin
+        _id: 660dd4d67835f57d7dd28773
+    Carritos:
+      CreateNewCart:
+        type: object
+        properties:
+          id:
+            type: string
+            description: ID del carrito.
+          products:
+            type: array
+            items:
+              $ref: #/components/schemas/Product
+            description: Productos en el carrito.
+        example:
+          _id: 660df37478f83de3a2c42fa1
+          products: []

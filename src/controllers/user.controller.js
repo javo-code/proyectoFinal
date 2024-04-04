@@ -47,7 +47,7 @@ export default class UserController extends Controllers {
   async register(req, res, next){
     try {
       const { first_name, last_name, email, age, password, role } = req.body;
-      const exist = await userService.getUserByEmail(email);
+      const exist = await userService.getByEmail(email);
       if (exist) return res.status(400).json({ msg: "User already exists" });
       const user = { first_name, last_name, email, age, password, role };
       const newUser = await userService.register(user);

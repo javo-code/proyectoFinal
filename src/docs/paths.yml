@@ -1,15 +1,25 @@
 paths:
-  /api/products:
+  /products:
     get:
+      tags:
+        - Productos
       summary: Obtiene todos los productos.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: #/components/parameters/schemas/BodyNewPost
+        required: true
       description: Retorna todos los productos almacenados.
       responses:
-        "200":
+        200:
           description: Lista de productos obtenida exitosamente.
-        "500":
-          description: Error del servidor.
+        404:
+          description: Error Geting Product.
 
     post:
+      tags:
+        - Productos
       summary: Crea un nuevo producto.
       description: Crea un nuevo producto con la información proporcionada.
       requestBody:
@@ -17,17 +27,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: #/components/schemas/Product
       responses:
-        "200":
+        200:
           description: Producto creado exitosamente.
-        "400":
+        400:
           description: Datos del producto no válidos.
-        "500":
+        500:
           description: Error del servidor.
 
-  /api/products/{id}: # Corregido el endpoint para las operaciones adicionales
-    get:
+    get/{id}:
+      tags:
+        - Productos
       summary: Obtiene un producto por su ID.
       description: Retorna un producto según su ID.
       parameters:
@@ -38,14 +49,16 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        200:
           description: Producto obtenido exitosamente.
-        "404":
+        404:
           description: Producto no encontrado.
-        "500":
+        500:
           description: Error del servidor.
 
     put:
+      tags:
+        - Productos
       summary: Actualiza un producto existente.
       description: Actualiza un producto según su ID.
       parameters:
@@ -60,18 +73,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: #/components/schemas/Product
       responses:
-        "200":
+        200:
           description: Producto actualizado exitosamente.
-        "400":
+        400:
           description: Datos del producto no válidos.
-        "404":
+        404:
           description: Producto no encontrado.
-        "500":
+        500:
           description: Error del servidor.
 
     delete:
+      tags:
+        - Productos
       summary: Elimina un producto existente.
       description: Elimina un producto según su ID.
       parameters:
@@ -82,33 +97,144 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        200:
           description: Producto eliminado exitosamente.
-        "404":
+        404:
           description: Producto no encontrado.
-        "500":
+        500:
           description: Error del servidor.
 
-  /api/carts:
+  /usuarios:
     get:
-      summary: Obtiene todos los carritos.
-      description: Retorna todos los carritos almacenados.
+      tags:
+        - Usuarios
+      summary: Obtiene todos los usuarios.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: #/components/parameters/schemas/BodyNewPost
+        required: true
+      description: Retorna todos los usuarios almacenados.
       responses:
-        "200":
-          description: Lista de carritos obtenida exitosamente.
-        "500":
-          description: Error del servidor.
+        200:
+          description: Lista de usuarios obtenida exitosamente.
+        404:
+          description: Error Geting Product.
 
     post:
-      summary: Crea un nuevo carrito.
-      description: Crea un nuevo carrito.
+      tags:
+        - Usuarios
+      summary: Crea un nuevo Usuario.
+      description: Crea un nuevo producto con la información proporcionada.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: #/components/schemas/Product
       responses:
-        "200":
-          description: Carrito creado exitosamente.
-        "500":
+        200:
+          description: Usuario creado exitosamente.
+        400:
+          description: Datos del usuario no válidos.
+        500:
+          description: Error del servidor.
+
+    get/{id}:
+      tags:
+        - Usuarios
+      summary: Obtiene un usuario por su ID.
+      description: Retorna un usuario según su ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del usuario a obtener.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Usuario obtenido exitosamente.
+        404:
+          description: Usuario no encontrado.
+        500:
+          description: Error del servidor.
+
+    put:
+      tags:
+        - Usuarios
+      summary: Actualiza un usuario existente.
+      description: Actualiza un usuario según su ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del usuario a actualizar.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: #/components/schemas/Product
+      responses:
+        200:
+          description: Usuario actualizado exitosamente.
+        400:
+          description: Datos del usuario no válidos.
+        404:
+          description: Usuario no encontrado.
+        500:
           description: Error del servidor.
 
     delete:
+      tags:
+        - Usuarios
+      summary: Elimina un usuario existente.
+      description: Elimina un usuario según su ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del usuario a eliminar.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Usuario eliminado exitosamente.
+        404:
+          description: Usuario no encontrado.
+        500:
+          description: Error del servidor.
+
+  /carts:
+    get:
+      tags:
+        - Carritos
+      summary: Obtiene todos los carritos.
+      description: Retorna todos los carritos almacenados.
+      responses:
+        200:
+          description: Lista de carritos obtenida exitosamente.
+        500:
+          description: Error del servidor.
+
+    post:
+      tags:
+        - Carritos
+      summary: Crea un nuevo carrito.
+      description: Crea un nuevo carrito.
+      responses:
+        200:
+          description: Carrito creado exitosamente.
+        500:
+          description: Error del servidor.
+
+    delete:
+      tags:
+        - Carritos
       summary: Elimina un carrito existente.
       description: Elimina un carrito según su ID.
       parameters:
@@ -119,58 +245,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        200:
           description: Carrito eliminado exitosamente.
-        "404":
+        404:
           description: Carrito no encontrado.
-        "500":
-          description: Error del servidor.
-
-  /api/carts/{id}/products/{productId}:
-    post:
-      summary: Agrega un producto a un carrito.
-      description: Agrega un producto a un carrito según su ID.
-      parameters:
-        - in: path
-          name: id
-          required: true
-          description: ID del carrito.
-          schema:
-            type: string
-        - in: path
-          name: productId
-          required: true
-          description: ID del producto a agregar.
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Producto agregado al carrito exitosamente.
-        "404":
-          description: Carrito o producto no encontrado.
-        "500":
-          description: Error del servidor.
-
-    delete:
-      summary: Elimina un producto de un carrito.
-      description: Elimina un producto de un carrito según su ID.
-      parameters:
-        - in: path
-          name: id
-          required: true
-          description: ID del carrito.
-          schema:
-            type: string
-        - in: path
-          name: productId
-          required: true
-          description: ID del producto a eliminar.
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Producto eliminado del carrito exitosamente.
-        "404":
-          description: Carrito o producto no encontrado.
-        "500":
+        500:
           description: Error del servidor.
