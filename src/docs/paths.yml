@@ -1,16 +1,9 @@
 paths:
-  /products:
+  /api/products:
     get:
       tags:
         - Productos
       summary: Obtiene todos los productos.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: #/components/parameters/schemas/BodyNewPost
-        required: true
-      description: Retorna todos los productos almacenados.
       responses:
         200:
           description: Lista de productos obtenida exitosamente.
@@ -20,14 +13,14 @@ paths:
     post:
       tags:
         - Productos
-      summary: Crea un nuevo producto.
       description: Crea un nuevo producto con la información proporcionada.
+      summary: Crea un nuevo producto.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: #/components/schemas/Product
+              $ref: "#/components/schemas/BobyProduct"
       responses:
         200:
           description: Producto creado exitosamente.
@@ -36,11 +29,12 @@ paths:
         500:
           description: Error del servidor.
 
-    get/{id}:
+  /api/products/{id}:
+    get:
       tags:
         - Productos
       summary: Obtiene un producto por su ID.
-      description: Retorna un producto según su ID.
+      description: Retorna un producto según su ID si es que existe en la existe en la base de datos.
       parameters:
         - in: path
           name: id
@@ -60,7 +54,7 @@ paths:
       tags:
         - Productos
       summary: Actualiza un producto existente.
-      description: Actualiza un producto según su ID.
+      description: Actualiza el cuerpo de un producto según su ID.
       parameters:
         - in: path
           name: id
@@ -69,11 +63,11 @@ paths:
           schema:
             type: string
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              $ref: #/components/schemas/Product
+              $ref: "#/components/schemas/BodyProduct"
+        required: true
       responses:
         200:
           description: Producto actualizado exitosamente.
@@ -113,7 +107,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: #/components/parameters/schemas/BodyNewPost
+              $ref: #/components/schemas/BodyNewPost
         required: true
       description: Retorna todos los usuarios almacenados.
       responses:

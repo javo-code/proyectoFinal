@@ -2,11 +2,12 @@ components:
   schema:
     Productos:
       CreateNewProduct:
+        type: object
         properties:
           title:
             type: string
             description: Título del producto.
-          description:
+          detail:
             type: string
             description: Descripción del producto.
           code:
@@ -24,16 +25,63 @@ components:
           thumbnails:
             type: string
             description: URLs de las imágenes del producto.
-      example:
-        title: producto NUEVO
-        description: NEW_PROD-DESCRIPTION
-        code: NEW_PROD-ACC
-        price: 100
-        stock: 10
-        category: deponsables
-        thumbnails: http://asdasd.com/gasa.jpg
-        owner: admin
-        _id: 660dd4d67835f57d7dd28773
+          owner:
+            type: string
+            description: Creador del producto.
+          id:
+            type: string
+            description: ID del producto.
+        example:
+          title: producto NUEVO
+          description: NEW_PROD-DESCRIPTION
+          code: NEW_PROD-ACC
+          price: 100
+          stock: 10
+          category: deponsables
+          thumbnails: http://asdasd.com/gasa.jpg
+          owner: admin
+          _id: 660dd4d67835f57d7dd28773
+      GetAllProducts:
+        type: array
+        items:
+          properties:
+            title:
+              type: string
+              description: Título del producto.
+            detail:
+              type: string
+              description: Descripción del producto.
+            code:
+              type: string
+              description: Código del producto.
+            price:
+              type: number
+              description: Precio del producto.
+            stock:
+              type: number
+              description: Stock disponible del producto.
+            category:
+              type: string
+              description: Categoría del producto.
+            thumbnails:
+              type: string
+              description: URLs de las imágenes del producto.
+            owner:
+              type: string
+              description: Creador del producto.
+            id:
+              type: string
+              description: ID del producto.
+          example:
+            title: producto NUEVO
+            description: NEW_PROD-DESCRIPTION
+            code: NEW_PROD-ACC
+            price: 100
+            stock: 10
+            category: deponsables
+            thumbnails: http://asdasd.com/gasa.jpg
+            owner: admin
+            _id: 660dd4d67835f57d7dd28773
     Usuarios:
       RegisterNewUser:
         properties:

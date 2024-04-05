@@ -36,8 +36,8 @@ export default class MongoDao {
 
   async update(id, obj) {
     try {
-      await this.model.updateOne({ _id: id }, obj);
-      return obj;
+      const itemUpdated = await this.model.updateOne({ _id: id }, obj);
+      return itemUpdated;
     } catch (error) {
       console.log('❌ Error del "update" en user.mongo.dao.js => ', error);
       throw new Error(error.message);

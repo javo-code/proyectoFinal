@@ -1,7 +1,6 @@
 components:
-  parameters:
-    schemas:
-    CreateNewProduct:
+  schemas:
+    BobyProduct:
       type: object
       required:
         - title
@@ -15,7 +14,7 @@ components:
         title:
           type: string
           description: Título del producto.
-        description:
+        detail:
           type: string
           description: Descripción del producto.
         code:
@@ -33,6 +32,12 @@ components:
         thumbnails:
           type: string
           description: URLs de las imágenes del producto.
+        owner:
+          type: string
+          description: Creador del producto.
+        id:
+          type: string
+          description: ID del producto.
       example:
         title: producto NUEVO
         description: NEW_PROD-DESCRIPTION
@@ -41,10 +46,8 @@ components:
         stock: 10
         category: deponsables
         thumbnails: http://asdasd.com/gasa.jpg
-        owner: admin
-        _id: 660dd4d67835f57d7dd28773
 
-    RegisterNewUser:
+    BodyUser:
       type: object
       required:
         - first_name
@@ -52,12 +55,10 @@ components:
         - email
         - age
         - password
-        - role
-        - lastConnection
       properties:
         first_name:
           type: string
-          description: Nombre completo del usuario.
+          description: Nombre del usuario.
         last_name:
           type: string
           description: Apellido/s del usuario.
@@ -70,20 +71,27 @@ components:
         password:
           type: number
           description: Contraseña del usuario.
-        role:
-          type: string
-          description: Rol del usuario.
-        lastConnection:
-          type: string
-          description: Ultima copneccion del usuario.
       example:
-        first_name: John,
-        last_name: Doe,
-        email: 7@gmail.com,
-        age: 30,
-        password: 123,
-        role: user
-
+        first_name: John
+        last_name: Doe
+        email: 7@gmail.com
+        age: 30
+        password: 123
+    Login:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          description: Email del usuario.
+        password:
+          type: number
+          description: Contraseña del usuario.
+      example:
+        email: 1@gmail.com
+        password: 123
     CreateNewCart:
       type: object
       properties:
