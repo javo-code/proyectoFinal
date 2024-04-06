@@ -1,38 +1,28 @@
 components:
   schema:
     users:
-      UserBody:
+      Register:
         type: object
         properties:
-          status:
-            type: number
-            description: Código de estado de la operación
-          message:
+          name:
             type: string
-            description: Mensaje de estado de la operación
-          data:
-            type: object
-            properties:
-              first_name:
-                type: string
-                description: Nopmbre del usuario.
-              last_name:
-                type: string
-                description: Apellido del usuario.
-              email:
-                type: string
-                description: Correo electrónico del usuario
-              age:
-                type: string
-                description: Edad del usuario
-              password:
-                type: string
-                description: Contraseña del usuario
-              lastConnection:
-                type: string
-                description: Id del usuario
-
-      LoginUser:
+            description: Nombre del usuario.
+          email:
+            type: string
+            description: Correo electrónico del usuario
+          userRole:
+            type: string
+            description: Tipo de cuenta del usuario
+          userId:
+            type: string
+            description: ID del usuario
+        example:
+          first_name: Fernando
+          last_name: Romero
+          email: fj@mail.com
+          age: 18
+          password: "123"
+      Login:
         type: object
         properties:
           status:
@@ -51,7 +41,7 @@ components:
                 type: string
                 description: Id del usuario
       GetAllUsers:
-        type: object
+        type: array
         properties:
           status:
             type: string
@@ -86,6 +76,32 @@ components:
                   type: string
                   format: date-time
                   description: Fecha de última conexión en formato ISO 8601 (YYYY-MM-DDTHH:MM:SSZ)
+      ProfileUser:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de estado de la petición
+          message:
+            type: string
+            description: Estado de la petición
+          data:
+            type: object
+            description: Datos del Usuario
+            properties:
+              first_name:
+                type: string
+                description: Nombre de usuario
+              last_name:
+                type: string
+                description: Apellido del usuario
+              email:
+                type: string
+                description: Email del usuario
+              role:
+                type: string
+                description: Rol del usuario
+
     products:
       CreateNewProduct:
         type: object
@@ -158,7 +174,7 @@ components:
             type: string
             description: ID del producto.
 
-    Carritos:
+    carts:
       CreateNewCart:
         type: object
         properties:
@@ -168,7 +184,7 @@ components:
           products:
             type: array
             items:
-              $ref: /components/schemas/carts/
+              $ref: /components/schemas/products
             description: Productos en el carrito.
         example:
           _id: 660df37478f83de3a2c42fa1
@@ -183,3 +199,75 @@ components:
           products:
             type: array
             description: Productos dentro del carrito
+      GetCart:
+        type: object
+        properties:
+          status:
+            type: string
+            description: Código de la operación
+          message:
+            type: string
+            description: Estado de la operación
+          data:
+            type: object
+            description: Carrito creado
+            properties:
+              id:
+                type: string
+                description: Nombre del producto
+              owner:
+                type: string
+                description: Mail del usuario que creó el carrito
+              products:
+                type: array
+                description: Array de productos en carrito
+                items:
+                  properties:
+                    id:
+                      type: string
+                      description: Id de producto en carrito
+                    quantity:
+                      type: number
+                      description: Cantidad de producto en carrito
+      ClearCart:
+        type: object
+        properties:
+          status:
+            type: string
+            description: Código de la operación
+          message:
+            type: string
+            description: Estado de la operación
+          data:
+            type: object
+            description: Carrito vaciado
+
+    tickets:
+      ticket:
+        type: object
+        properties:
+          status:
+            type: string
+            description: Código de la operación
+          message:
+            type: string
+            description: Estado de la operación
+          data:
+            type: object
+            description: Ticket creado
+            properties:
+              id:
+                type: string
+                description: Id del ticket
+              code:
+                type: string
+                description: Código de compra
+              purchase_datetime:
+                type: string
+                description: Fecha de compra
+              amount:
+                type: number
+                description: Precio a pagar
+              purchaser:
+                type: string
+                description: Comprador

@@ -1,11 +1,107 @@
 components:
-  schemas:
-    products:
+  parameters:
+    schemas:
+      NewUser:
+        type: object
+        required:
+          - first_name
+          - last_name
+          - email
+          - age
+          - password
+        properties:
+          first_name:
+            type: string
+            description: Nombre del Usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Mail del usuario
+          age:
+            type: string
+            description: Edad del usuario
+          password:
+            type: string
+            description: Contraseña del usuario
+        example:
+          first_name: Javier
+          last_name: Romero
+          email: fj@gmail.com
+          age: 50
+          password: "1234"
+
+      Register:
+        type: object
+        required:
+          - first_name
+          - last_name
+          - email
+          - age
+          - password
+        properties:
+          first_name:
+            type: string
+            description: Nombre del Usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Mail del usuario
+          age:
+            type: number
+            description: Edad del usuario
+          password:
+            type: string
+            description: Contraseña del usuario
+        example:
+          first_name: Javier
+          last_name: Romero
+          email: fj@gmail.com
+          age: 50
+          password: "123"
+
+        Login:
+          type: object
+          require:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+              description: Mail del usuario
+            password:
+              type: string
+              description: Contraseña del usuario
+          example:
+            email: javo@mail.com
+            password: "123"
+
+      Login:
+        type: object
+        required:
+          - first_name
+          - last_name
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            description: Mail del usuario
+          password:
+            type: string
+            description: Contraseña del usuario
+        example:
+          email: javo@mail.com
+          password: "123"
+
       ProductBody:
         type: object
         required:
           - title
-          - description
+          - detail
           - code
           - price
           - stock
@@ -47,92 +143,3 @@ components:
           stock: 10
           category: deponsables
           thumbnails: http://asdasd.com/gasa.jpg
-
-    users:
-      UserBody:
-        type: object
-        required:
-          - first_name
-          - last_name
-          - email
-          - age
-          - password
-          - role
-        properties:
-          first_name:
-            type: string
-            description: Nombre del usuario.
-          last_name:
-            type: string
-            description: Apellido del usuario.
-          email:
-            type: string
-            format: email
-            description: Correo electrónico del usuario.
-          age:
-            type: number
-            description: Edad del usuario.
-          password:
-            type: string
-            description: Contraseña del usuario.
-          role:
-            type: string
-            default: admin
-            description: Rol del usuario.
-          lastConnection:
-            type: string
-            format: date-time
-            default: "now"
-            description: Última conexión del usuario.
-        example:
-          first_name: Javier
-          last_name: Romero
-          email: javo@mail.com
-          age: 18
-          password: "1234"
-          role: premium
-      Register:
-        type: object
-        required:
-          - first_name
-          - last_name
-          - email
-          - age
-          - password
-        properties:
-          first_name:
-            type: string
-            description: Nombre del Usurario
-          last_name:
-            type: string
-            description: Apellido del usuario
-          email:
-            type: string
-            description: Mail del usuario
-          password:
-            type: string
-            description: Contraseña del usuario
-        example:
-          first_name: Javier
-          last_name: Romero
-          age: 50
-          email: fj@gmail.com
-          password: "1234"
-      Login:
-        type: object
-        properties:
-          status:
-            type: number
-            description: Código de estado de la operación
-          message:
-            type: string
-            description: Mensaje de estado de la operación
-          data:
-            type: object
-            properties:
-              token:
-                type: string
-                description: Token del usuario
-              userId:
-                type: string
-                description: Id del usuario

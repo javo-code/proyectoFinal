@@ -2,7 +2,6 @@
 import config from "./config/config.js";
 import express from 'express';
 import cookieParser from "cookie-parser";
-
 import { errorHandler } from './middlewares/errorHandler.js';
 import { Command } from "commander";
 import { logger } from "./utils/logger.winston.js";
