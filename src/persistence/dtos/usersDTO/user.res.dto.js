@@ -3,8 +3,9 @@ export default class UserResDTO {
   constructor(user) {
     console.log("🔊solicitud que viene desde el REPOSITORY", user)
 
-    this.nombre = user.first_name;
-    this.correo = user.email;
-    this.tipoDeCuenta = user.role;
+    this.name = user.first_name;
+    this.email = user.email;
+    this.userRole = user.role;
+    this.userID = user._id
   }
 }
