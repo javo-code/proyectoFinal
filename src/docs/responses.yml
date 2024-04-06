@@ -101,7 +101,6 @@ components:
               role:
                 type: string
                 description: Rol del usuario
-
     products:
       CreateNewProduct:
         type: object
@@ -173,8 +172,17 @@ components:
           id:
             type: string
             description: ID del producto.
-
     carts:
+      GetAllCarts:
+        type: array
+        items:
+          properties:
+          _id:
+            type: string
+            description: ID del carrito
+          products:
+            type: array
+            description: Productos dentro del carrito
       CreateNewCart:
         type: object
         properties:
@@ -189,16 +197,6 @@ components:
         example:
           _id: 660df37478f83de3a2c42fa1
           products: []
-      GetAllCarts:
-        type: array
-        items:
-          properties:
-          _id:
-            type: string
-            description: ID del carrito
-          products:
-            type: array
-            description: Productos dentro del carrito
       GetCart:
         type: object
         properties:
@@ -241,7 +239,6 @@ components:
           data:
             type: object
             description: Carrito vaciado
-
     tickets:
       ticket:
         type: object

@@ -197,32 +197,27 @@ paths:
         500:
           description: Error del servidor.
 
-  /api/carts:
+  /api/carts/:
     get:
       tags:
         - Carts
-      summary: Obtiene todos los carritos.
-      description: Retorna todos los carritos almacenados.
+      summary: Mostrar carrito del usuario.
       responses:
         200:
-          description: Lista de carritos obtenida exitosamente.
+          description: Carrito obtenido exitosamente.
+        404:
+          description: Carrito no encontrado.
         500:
           description: Error del servidor.
-
     post:
       tags:
         - Carts
-      summary: Crea un nuevo carrito.
-      description: Crea un nuevo carrito.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/parameters/schemas/carts"
+      summary: Crear carrito.
       responses:
         200:
           description: Carrito creado exitosamente.
+        404:
+          description: Carrito no encontrado.
         500:
           description: Error del servidor.
 
@@ -230,19 +225,142 @@ paths:
     delete:
       tags:
         - Carts
-      summary: Elimina un carrito existente.
-      description: Elimina un carrito según su ID.
+      summary: Borrar un carrito.
       parameters:
         - in: path
           name: id
           required: true
-          description: ID del carrito a eliminar.
+          description: Id del carrito  a eliminar.
           schema:
             type: string
       responses:
         200:
-          description: Carrito eliminado exitosamente.
+          description: El carrito se eliminó con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/carts/Cart"
+        401:
+          description: Usuario no autorizado.
         404:
-          description: Carrito no encontrado.
+          description: Error en validación del body.
+        500:
+          description: Error del servidor.
+    get:
+      tags:
+        - Carts
+      summary: Buscar carrito por Id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Id del carrito a buscar.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Carrito encontrado.
+        401:
+          description: Usuario no autorizado.
+        404:
+          description: Error en validación del body.
+        500:
+          description: Error del servidor.
+
+  /api/carts/{idCart}/products/{idProd}:
+    post:
+      tags:
+        - Carts
+      summary: Agregar producto al carrito
+      parameters:
+        - in: path
+          name: idCart
+          required: true
+          description: Id del carrito a buscar
+          schema:
+            type: string
+        - in: path
+          name: idProd
+          required: true
+          description: Id del producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto agregado con éxito.
+        401:
+          description: Usuario no autorizado.
+        404:
+          description: Error en validación del body.
+        500:
+          description: Error del servidor.
+    delete:
+      tags:
+        - Carts
+      summary: Eliminar producto de carrito.
+      parameters:
+        - in: path
+          name: idCart
+          required: true
+          description: Id del carrito a buscar.
+          schema:
+            type: string
+        - in: path
+          name: idProd
+          required: true
+          description: Id del producto.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto eliminado con éxito.
+        401:
+          description: Usuario no autorizado.
+        404:
+          description: Error en validación del body.
+        500:
+          description: Error del servidor.
+
+  /api/carts/clear/{idCart}:
+    delete:
+      tags:
+        - Carts
+      summary: Vaciar carrito.
+      parameters:
+        - in: path
+          name: idCart
+          required: true
+          description: Id del carrito a buscar.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Carrito vaciado con éxito.
+        401:
+          description: Usuario no autorizado.
+        404:
+          description: Error en validación del body.
+        500:
+          description: Error del servidor.
+
+  /api/tickets/{cartId}:
+    post:
+      tags:
+        - Tickets
+      summary: Crear ticket con el resumen de compra del usuario.
+      parameters:
+        - in: path
+          name: cartId
+          required: true
+          description: Id del carrito a buscar.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Ticket generado con éxito.
+        401:
+          description: Usuario no autorizado.
+        404:
+          description: Error en validación del body.
         500:
           description: Error del servidor.
